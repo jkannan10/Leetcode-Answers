@@ -1,0 +1,25 @@
+class Solution {
+    public static void func(int val,int n,List<List<Integer>>ans,List<Integer>ds){
+        if( n == 1){
+            if(ds.size() > 1){
+                ans.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        for(int i=val;i<=n;i++){
+            if(n%i ==0){
+                ds.add(i);
+                func(i,n/i,ans,ds);
+                ds.remove(ds.size()-1);
+            }
+        }
+    }
+    public List<List<Integer>> getFactors(int n) {
+        List<List<Integer>>ansList=new ArrayList<>();
+        if( n== 1){
+            return ansList;
+        }
+        func(2,n,ansList,new ArrayList<>());
+        return ansList;
+    }
+}
