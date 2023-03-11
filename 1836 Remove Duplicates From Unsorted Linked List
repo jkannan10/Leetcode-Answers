@@ -1,0 +1,43 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+typedef struct ListNode node;
+struct ListNode* deleteDuplicatesUnsorted(struct ListNode* head){
+    if( head == NULL || head -> next == NULL){
+        return head;
+    }
+    node * temp=head;
+    int max=-1;
+     int hash[100001]={0};
+    while(temp != NULL ){
+        hash[temp->val]++;
+        if( temp->val > max){
+            max=temp->val;
+        }
+        temp=temp->next;
+    }
+   
+    node* ret=NULL,*tail=NULL;
+    temp=head;
+    while(temp != NULL){
+        if(hash[temp->val] == 1){
+            node * n=(node*)malloc(sizeof(node));
+            n->val=temp->val;
+            n->next=NULL;
+            if( ret == NULL){
+                ret=tail=n;
+            }else{
+                tail->next=n;
+                tail=n;
+            }
+           // printf("%d ",i);
+        }
+        temp=temp->next;
+    }
+    return ret;
+}
